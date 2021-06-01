@@ -19,7 +19,6 @@ RUN apt-get update \
      && rm domoticz_release.tgz													\
      && touch /opt/domoticz/domoticz.db	 											\ 
      && chmod 644 /opt/domoticz/domoticz.db	 	 									\ 
-     && mkdir /opt/domoticz/plugins 												\
      && cd /opt/domoticz/plugins												\
      && git clone https://github.com/guillaumezin/DomoticzLinky	  								\
      && cd /opt/domoticz													\ 
@@ -29,11 +28,12 @@ RUN apt-get update \
      && echo "echo Lancement de domoticz"				>> /usr/bin/startdomo.sh  \
      && echo "exec /opt/domoticz/domoticz -daemon&"			>> /usr/bin/startdomo.sh  \
      && echo "exec /bin/sh -c bash"					>> /usr/bin/startdomo.sh  \
+     && echo "cp /opt/domoticz/domoticz.db " '$SVG'"\Base Domoticz "'$(date +%F)'".db" > /usr/local/bin/svgDomo.sh    \	 
      && chmod a+x /usr/local/bin/* 	 											\
-     && echo '00     5       */1       *       *       /usr/local/bin/svgDomo.sh' > /etc/crontabs/root	      			\
-     && chmod a+x /etc/cron.weekly/svgDomo.sh           
+     && echo '00     5       */1       *       *       /usr/local/bin/svgDomo.sh' > /etc/crontabs/root	      			
 
 # && echo "cp /opt/domoticz/domoticz.db " '$SVG'"\Base Domoticz "'$(date +%F)'".db" > /usr/local/bin/svgDomo.sh    \	 
+# && mkdir /opt/domoticz/plugins 												\
 
 # Lancement du daemon cron
 #CMD /bin/sh -c /usr/bin/startdomo.sh
