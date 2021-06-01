@@ -7,7 +7,7 @@ ENV TZ=Europe/Paris  SVG=/mnt/svg/
 
 EXPOSE 8080 443
 #If you want to save the Domoticz DataBase outside of the container
-VOLUME /docker/domoticz/ /mnt/svg/
+VOLUME /mnt/svg/
 
 RUN apt-get update \ 
      && apt-get -f -y install libcurl4 unzip wget curl cron tzdata python3 libpython3-stdlib git libudev-dev libusb-dev \ 
@@ -19,21 +19,21 @@ RUN apt-get update \
      && rm domoticz_release.tgz		\
      && touch /opt/domoticz/domoticz.db	 \ 
      && chmod 644 /opt/domoticz/domoticz.db	 	 \ 
+     && mkdir /opt/domoticz/plugins 	\
+     && cd /opt/domoticz/plugins		\
+     && git clone https://github.com/guillaumezin/DomoticzLinky	  \
      &&  echo  "#!/usr/bin/env bash"					> /usr/bin/startdomo.sh  \
      &&  echo  "exec cron&"					>> /usr/bin/startdomo.sh  \
      &&  echo  "exec /opt/domoticz/domoticz -daemon&"	>> /usr/bin/startdomo.sh  \
      &&  echo  "exec /bin/sh -c bash"						>> /usr/bin/startdomo.sh  \
-     && chmod a+x /usr/bin/startdomo.sh   \
-     &&  echo echo "cp /opt/domoticz/domoticz.db " '$SVG'"\Base Domoticz "'$(date +%F)'".db" > /usr/local/bin/svgDomo.sh    \
+     &&  echo "cp /opt/domoticz/domoticz.db " '$SVG'"\Base Domoticz "'$(date +%F)'".db" > /usr/local/bin/svgDomo.sh    \
      && chmod a+x /usr/local/bin/* 	 \
      &&  echo '00     5       */1       *       *       /usr/local/bin/svgDomo.sh' > /etc/cron.weekly/svgDomo.sh \
-     && chmod a+x /etc/cron.weekly/svgDomo.sh                \
-     && mkdir /opt/domoticz/plugins		\
-     && cd /opt/domoticz/plugins		\
-     && git clone https://github.com/guillaumezin/DomoticzLinky
-	 
+     && chmod a+x /etc/cron.weekly/svgDomo.sh           
+
 	 
 
 # Lancement du daemon cron
-CMD /bin/sh -c /usr/bin/startdomo.sh
+#CMD /bin/sh -c /usr/bin/startdomo.sh
+CMD /bin/sh
 
