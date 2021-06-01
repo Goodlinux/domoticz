@@ -30,7 +30,7 @@ RUN apt-get update \
      && echo "exec /bin/sh -c bash"					>> /usr/bin/startdomo.sh  \
      && echo "cp /opt/domoticz/domoticz.db " '$SVG'"\Base Domoticz "'$(date +%F)'".db" > /usr/local/bin/svgDomo.sh    \	 
      && chmod a+x /usr/local/bin/* 	 											\
-     && echo '00     5       */1       *       *       /usr/local/bin/svgDomo.sh' > /etc/crontabs/root	      			
+     && echo '00     5       */1       *       *       /usr/local/bin/svgDomo.sh' >  /etc/cron.weekly/svgDomo.sh	      			
 
 # && echo "cp /opt/domoticz/domoticz.db " '$SVG'"\Base Domoticz "'$(date +%F)'".db" > /usr/local/bin/svgDomo.sh    \	 
 # && mkdir /opt/domoticz/plugins 												\
