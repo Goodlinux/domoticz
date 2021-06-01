@@ -24,9 +24,9 @@ RUN apt-get update \
      && git clone https://github.com/guillaumezin/DomoticzLinky	  								\
      && cd /opt/domoticz													\ 
      && echo "#!/usr/bin/env bash"					> /usr/bin/startdomo.sh  \
-     && echo "echo 'Lancement de Cron'"  				>> /usr/bin/startdomo.sh  \
+     && echo "echo Lancement de Cron"  				>> /usr/bin/startdomo.sh  \
      && echo "exec cron&"						>> /usr/bin/startdomo.sh  \
-     && echo "echo 'Lancement de domoticz'"				>> /usr/bin/startdomo.sh  \
+     && echo "echo Lancement de domoticz"				>> /usr/bin/startdomo.sh  \
      && echo "exec /opt/domoticz/domoticz -daemon&"			>> /usr/bin/startdomo.sh  \
      && echo "exec /bin/sh -c bash"					>> /usr/bin/startdomo.sh  \
      && chmod a+x /usr/local/bin/* 	 											\
