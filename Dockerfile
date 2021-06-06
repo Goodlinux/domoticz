@@ -10,7 +10,7 @@ EXPOSE 8080 443
 VOLUME /mnt/svg/
 
 RUN apt-get update \ 
-     && apt-get -f -y install libcurl4 unzip wget curl cron tzdata python3 libpython3-stdlib libpython3.7 git libudev-dev libusb-dev    	\ 
+     && apt-get -f -y install libcurl4 unzip wget curl cron tzdata python3 libpython3-stdlib libpython3.7 libpython3.7-dev git libudev-dev libusb-dev    	\ 
      && cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ >  /etc/timezone  						\ 
      && mkdir /opt/domoticz													\
      && cd /opt/domoticz													\
@@ -36,6 +36,6 @@ RUN apt-get update \
 # && mkdir /opt/domoticz/plugins 												\
 
 # Lancement du daemon cron
-#CMD /bin/sh -c /usr/local/bin/entrypoint.sh
-CMD /bin/sh
+CMD /bin/sh -c /usr/local/bin/entrypoint.sh
+#CMD /bin/sh
 
