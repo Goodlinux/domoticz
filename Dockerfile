@@ -22,12 +22,12 @@ RUN apt-get update \
      && cd /opt/domoticz/plugins												\
      && git clone https://github.com/guillaumezin/DomoticzLinky	  								\
      && cd /opt/domoticz													\ 
-     && echo "#!/usr/bin/env bash"					> /usr/local/bin/startdomo.sh  \
-     && echo "echo Lancement de Cron"  				>> /usr/local/bin/startdomo.sh  \
-     && echo "exec cron&"						>> /usr/local/bin/startdomo.sh  \
-     && echo "echo Lancement de domoticz"				>> /usr/local/bin/startdomo.sh  \
-     && echo "exec /opt/domoticz/domoticz -daemon&"			>> /usr/local/bin/startdomo.sh  \
-     && echo "exec /bin/sh -c bash"					>> /usr/local/bin/startdomo.sh  \
+     && echo "#!/usr/bin/env bash"					     > /usr/local/bin/entrypoint.sh  \
+     && echo "echo Lancement de Cron"  				     >> /usr/local/bin/entrypoint.sh  \
+     && echo "exec cron&"						     >> /usr/local/bin/entrypoint.sh  \
+     && echo "echo Lancement de domoticz"				>> /usr/local/bin/entrypoint.sh  \
+     && echo "exec /opt/domoticz/domoticz -daemon&"		>> /usr/local/bin/entrypoint.sh  \
+     && echo "exec /bin/sh -c bash"					>> /usr/local/bin/entrypoint.sh  \
      && echo "cp /opt/domoticz/domoticz.db " '$SVG'"\Base Domoticz "'$(date +%F)'".db" > /usr/local/bin/svgDomo.sh    \	 
      && chmod a+x /usr/local/bin/* 	 											\
      && echo '00     5       */1       *       *       /usr/local/bin/svgDomo.sh' >  /etc/cron.weekly/svgDomo.sh	      			
@@ -36,6 +36,6 @@ RUN apt-get update \
 # && mkdir /opt/domoticz/plugins 												\
 
 # Lancement du daemon cron
-#CMD /bin/sh -c /usr/bin/startdomo.sh
+#CMD /bin/sh -c /usr/local/bin/entrypoint.sh
 CMD /bin/sh
 
