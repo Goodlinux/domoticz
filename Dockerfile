@@ -9,8 +9,8 @@ EXPOSE 8080 443
 #If you want to save the Domoticz DataBase outside of the container
 VOLUME /mnt/svg/
 
-RUN apt-get update \ 
-     && apt-get -f -y install libcurl4 unzip wget curl cron tzdata python3 libpython3-stdlib libpython3.7 libpython3.7-dev git libudev-dev libusb-dev    	\ 
+RUN apt-get update \  
+     && apt-get -f -y install libcurl4 unzip wget curl cron tzdata python3 libpython3-stdlib libpython3.9 libpython3.9-dev git libudev-dev libusb-dev  \
      && cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ >  /etc/timezone  						\ 
      && mkdir /opt/domoticz													\
      && cd /opt/domoticz													\
