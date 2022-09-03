@@ -28,7 +28,7 @@ RUN apt-get update \
      && echo "echo Lancement de domoticz"				>> /usr/local/bin/entrypoint.sh  \
      && echo "exec /opt/domoticz/domoticz -daemon&"		>> /usr/local/bin/entrypoint.sh  \
      && echo "exec /bin/sh -c bash"					>> /usr/local/bin/entrypoint.sh  \
-     && echo "cp /opt/domoticz/domoticz.db " '$SVG'"\Base Domoticz "'$(date +%F)'".db" > /usr/local/bin/svgDomo.sh    \	 
+     && echo "cp /opt/domoticz/domoticz.db " '$SVG'"/Base-Domoticz-"'$(date +%F)'".db" > /usr/local/bin/svgDomo.sh    \	 
      && chmod a+x /usr/local/bin/* 	 											\
      && echo '00     5       */1       *       *       /usr/local/bin/svgDomo.sh' >  /etc/cron.weekly/svgDomo.sh	      			
 
